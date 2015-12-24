@@ -12,7 +12,6 @@ key = 'a37fae643df77aa83d88abbc9e8e96194ab242d4'  # API key для сервис�
 dirImg = 'img.png'  # путь сохранения изображения
 ip = ''
 
-
 def get_ip():
 
     """ Получить свой IP-адрес """
@@ -85,7 +84,6 @@ def get_weather():
     out.close()
 
     return weather
-
 
 if __name__ == '__main__':
     cur_weather = get_weather()
