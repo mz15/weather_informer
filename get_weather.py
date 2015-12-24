@@ -10,21 +10,25 @@ urlIPService = 'http://checkip.dyndns.org'  # сервис для определ
 reIP = re.compile('<body>Current IP Address: (.*)</body>')  # поиск ip-адреса на странице
 key = 'a37fae643df77aa83d88abbc9e8e96194ab242d4'  # API key для сервиса погоды
 dirImg = 'img.png'  # путь сохранения изображения
+ip = ''
+
 
 def get_ip():
 
     """ Получить свой IP-адрес """
 
+    global ip
     log.debug('Запрос на получение IP-адреса')
+
     try:
         data = urlopen(urlIPService).read().decode('utf-8')
     except IOError:
         log.error('Сервер вернул ошибку')
-        return 0
+        return ''
+
     ip = re.findall(reIP, data)[0]
     log.debug('IP-адрес: %s' % ip)
     return ip
-
 
 def get_weather():
 
@@ -34,8 +38,10 @@ def get_weather():
         -(dict) параметры погоды с их значениями
     """
 
-    ip = get_ip()
-    if ip == 0:  # если не получили ip-адрес
+    global ip
+    if len(ip) == 0:
+        ip = get_ip()
+    if ip == '':  # если не получили ip-адрес
         return 0
     url = 'http://api.worldweatheronline.com/free/v1/weather.ashx?' +\
           'key=' + key +\
@@ -79,6 +85,7 @@ def get_weather():
     out.close()
 
     return weather
+
 
 if __name__ == '__main__':
     cur_weather = get_weather()
