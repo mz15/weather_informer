@@ -78,7 +78,6 @@ def get_weather():
 
     return weather
 
-
 if __name__ == '__main__':
     cur_weather = get_weather()
     print(
