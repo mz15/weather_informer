@@ -47,25 +47,30 @@ class Window(QtGui.QMainWindow):
         self.gridlay2.addWidget(self.group2, 0, 0, 0, 0)
 
         self.label1 = QtGui.QLabel(self.group2)
-        self.label1.setText('<font color = black>Погода:<\\font>')
+        self.label1.setText(weather)
         self.lay2.addWidget(self.label1)
 
         self.label2 = QtGui.QLabel(self.group2)
-        self.label2.setText('<font color = black>Температура:<\\font>')
+        self.label2.setText(temperature)
         self.lay2.addWidget(self.label2)
 
         self.label3 = QtGui.QLabel(self.group2)
-        self.label3.setText('<font color = black>Скорость ветра:<\\font>')
+        self.label3.setText(wind_speed)
         self.lay2.addWidget(self.label3)
 
         self.label4 = QtGui.QLabel(self.group2)
-        self.label4.setText('<font color = black>Влажность:<\\font>')
+        self.label4.setText(humidity)
         self.lay2.addWidget(self.label4)
 
         self.label5 = QtGui.QLabel(self.group2)
-        self.label5.setText('<font color = black>Осадки:<\\font>')
+        self.label5.setText(precipitation)
         self.lay2.addWidget(self.label5)
 
+weather = "<font color = blue>Погода:<\\font>"
+temperature = "<font color = blue>Температура:<\\font>"
+wind_speed = "<font color = blue>Скорость ветра:<\\font>"
+humidity = "<font color = blue>Влажность:<\\font>"
+precipitation = "<font color = blue>Осадки:<\\font>"
 
 app = QtGui.QApplication(sys.argv)
 qb = Window()
