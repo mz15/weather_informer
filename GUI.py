@@ -88,8 +88,25 @@ class Window(QtGui.QMainWindow):
 #        self.button1.setFont(self.font2)
         self.button1.setFocusPolicy(QtCore.Qt.NoFocus)
         self.button1.setStatusTip('Получить данные о погоде')
-#        self.connect(self.button1, QtCore.SIGNAL('clicked()'), self.cur_weather)
+        self.connect(self.button1, QtCore.SIGNAL('clicked()'), self.update_weather)
 
+    def update_weather(self):
+        cur_weather = get_weather.get_weather()
+        if cur_weather == 0:
+            # TODO вывод ошибки
+            return 0
+
+        self.label1.setText("<font color = blue>Состояние погоды: <\\font>" + cur_weather['condition'])
+        self.label2.setText("<font color = blue>Температура: <\\font>" + cur_weather['temperature'] + " (°C)")
+        self.label3.setText("<font color = blue>Влажность: <\\font>" + cur_weather['humidity'] + "%")
+        self.label4.setText("<font color = blue>Облачность: <\\font>" + cur_weather['cloudcover'] + "%")
+        self.label5.setText("<font color = blue>Скорость ветра: <\\font>" + cur_weather['windSpeed'] + " (км/ч)")
+        self.label6.setText("<font color = blue>Направление ветра: <\\font>" + cur_weather['windDirection'])
+        self.label7.setText("<font color = blue>Видимость: <\\font>" + cur_weather['visibility'] + " (км)")
+        self.label8.setText("<font color = blue>Количество осадков: <\\font>" + cur_weather['precipitation'] + " (мм)")
+        self.label9.setText("<font color = blue>Давление: <\\font>" + str(cur_weather['pressure']) + " (мм р. ст.)")
+
+# неправильно обновляешь
 label_condition = "<font color = blue>Для получения данных о погоде необходимо нажать кнопку<\\font>"
 label_temperature = ""
 label_humidity = ""
@@ -99,6 +116,7 @@ label_wind_direction = ""
 label_visibility = ""
 label_precipitation = ""
 label_pressure = ""
+
 
 #cur_weather = get_weather.get_weather()
 

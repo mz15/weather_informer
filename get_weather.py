@@ -11,7 +11,6 @@ reIP = re.compile('<body>Current IP Address: (.*)</body>')  # поиск ip-ад
 key = 'a37fae643df77aa83d88abbc9e8e96194ab242d4'  # API key для сервиса погоды
 dirImg = 'img.png'  # путь сохранения изображения
 
-
 def get_ip():
     """
     Получить свой IP-адрес
