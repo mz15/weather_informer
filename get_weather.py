@@ -1,20 +1,27 @@
 # -*- coding: utf-8 -*-
 
-import re
 from urllib.request import urlopen
 import json
+import re
+import logging as log
 
-
-reg = re.compile('<body>Current IP Address: (.*)</body>')  # поиск ip-адреса
-key = 'a37fae643df77aa83d88abbc9e8e96194ab242d4'  # API key
+log.basicConfig(format='%(asctime)s: %(message)s', level=log.DEBUG)  # конфигурация логирования
+urlIPService = 'http://checkip.dyndns.org'  # сервис для определения своего ip-адреса
+reg = re.compile('<body>Current IP Address: (.*)</body>')  # поиск ip-адреса на странице
+key = 'a37fae643df77aa83d88abbc9e8e96194ab242d4'  # API key для сервиса погоды
 
 
 def get_ip():
     """Получить свой IP-адрес
     """
-    url = 'http://checkip.dyndns.org'  # сервис для определения своего ip-адреса
-    data = urlopen(url).read().decode('utf-8')
+    log.debug('Отправлен запрос на получение IP-адреса')
+    try:
+        data = urlopen(urlIPService).read().decode('utf-8')
+    except IOError:
+        log.error('Сервер вернул ошибку')
+        return 0
     ip = re.findall(reg, data)[0]
+    log.debug('IP-адрес: %s' % ip)
     return ip
 
 
@@ -25,13 +32,21 @@ def get_weather():
         -(dict) параметры погоды с их значениями
     """
     ip = get_ip()
+    if ip == 0:  # если не получили ip-адрес
+        return 0
     url = 'http://api.worldweatheronline.com/free/v1/weather.ashx?' +\
           'key=' + key +\
           '&q=' + ip +\
           '&num_of_days=0' \
           '&lang=ru' \
           '&format=json'
-    data = urlopen(url).read().decode('utf-8')  # считываем ответ сервиса погоды
+    log.debug('Отправлен запрос на получение информации по погоде')
+    try:
+        data = urlopen(url).read().decode('utf-8')  # считываем ответ сервиса погоды
+    except IOError:
+        log.error('Сервер вернул ошибку')
+        return 0
+    log.debug('Получена информация по погоде')
     data = json.loads(data)  # сериализируем полученные данные
     data = data['data']['current_condition'][0]  # выбираем данные по текущей погоде
     # переводим данные в удобный для работы вид
