@@ -27,7 +27,7 @@ class Window(QtGui.QMainWindow):
         self.frame1 = QtGui.QFrame(self)
         self.frame1.setFrameShape(QtGui.QFrame.StyledPanel)
         self.frame1.setFrameShadow(QtGui.QFrame.Raised)
-        self.frame1.setGeometry(15, 0, 200, 180)
+        self.frame1.setGeometry(15, 10, 200, 180)
         self.gridlay1 = QtGui.QGridLayout(self.frame1)
 
         self.group1 = QtGui.QGroupBox('Для иконки погоды:', self.frame1)  # Frame with an inscription
@@ -39,7 +39,7 @@ class Window(QtGui.QMainWindow):
         self.frame2 = QtGui.QFrame(self)
         self.frame2.setFrameShape(QtGui.QFrame.StyledPanel)
         self.frame2.setFrameShadow(QtGui.QFrame.Raised)
-        self.frame2.setGeometry(220, 0, 290, 180)
+        self.frame2.setGeometry(220, 10, 290, 180)
         self.gridlay2 = QtGui.QGridLayout(self.frame2)
 
         self.group2 = QtGui.QGroupBox('Погода в текущем городе:', self.frame2)  # Frame with an inscription
@@ -47,30 +47,30 @@ class Window(QtGui.QMainWindow):
         self.gridlay2.addWidget(self.group2, 0, 0, 0, 0)
 
         self.label1 = QtGui.QLabel(self.group2)
-        self.label1.setText(weather)
+        self.label1.setText(weather2)
         self.lay2.addWidget(self.label1)
 
         self.label2 = QtGui.QLabel(self.group2)
-        self.label2.setText(temperature)
+        self.label2.setText(temperature2)
         self.lay2.addWidget(self.label2)
 
         self.label3 = QtGui.QLabel(self.group2)
-        self.label3.setText(wind_speed)
+        self.label3.setText(wind_speed2)
         self.lay2.addWidget(self.label3)
 
         self.label4 = QtGui.QLabel(self.group2)
-        self.label4.setText(humidity)
+        self.label4.setText(humidity2)
         self.lay2.addWidget(self.label4)
 
         self.label5 = QtGui.QLabel(self.group2)
-        self.label5.setText(precipitation)
+        self.label5.setText(precipitation2)
         self.lay2.addWidget(self.label5)
 
-weather = "<font color = blue>Погода:<\\font>"
-temperature = "<font color = blue>Температура:<\\font>"
-wind_speed = "<font color = blue>Скорость ветра:<\\font>"
-humidity = "<font color = blue>Влажность:<\\font>"
-precipitation = "<font color = blue>Осадки:<\\font>"
+weather2 = "<font color = blue>Погода:<\\font>"
+temperature2 = "<font color = blue>Температура:<\\font>"
+wind_speed2 = "<font color = blue>Скорость ветра:<\\font>"
+humidity2 = "<font color = blue>Влажность:<\\font>"
+precipitation2 = "<font color = blue>Осадки:<\\font>"
 
 app = QtGui.QApplication(sys.argv)
 qb = Window()
