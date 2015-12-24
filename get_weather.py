@@ -5,11 +5,11 @@ import json
 import re
 import logging as log
 
-log.basicConfig(format='%(asctime)s: %(message)s', level=log.DEBUG)  # конфигурация логирования
-urlIPService = 'http://checkip.dyndns.org'  # сервис для определения своего ip-адреса
-reIP = re.compile('<body>Current IP Address: (.*)</body>')  # поиск ip-адреса на странице
+log.basicConfig(format='%(asctime)s: %(message)s', level=log.DEBUG)  # Конфигурация логирования
+urlIPService = 'http://checkip.dyndns.org'  # Сервис для определения своего IP-адреса
+reIP = re.compile('<body>Current IP Address: (.*)</body>')  # Поиск IP-адреса на странице
 key = 'a37fae643df77aa83d88abbc9e8e96194ab242d4'  # API key для сервиса погоды
-dirImg = 'img.png'  # путь сохранения изображения
+dirImg = 'img.png'  # Путь сохранения изображения
 ip = ''
 
 def get_ip():
@@ -32,7 +32,7 @@ def get_ip():
 def get_weather():
 
     """
-    Получить данные по погоде
+    Получить данные о погоде
     Возвращает:
         -(dict) параметры погоды с их значениями
     """
@@ -49,35 +49,39 @@ def get_weather():
           '&lang=ru' \
           '&format=json'
     log.debug('Запрос на получение информации по погоде')
+
     try:
         data = urlopen(url).read().decode('utf-8')  # считываем ответ сервиса погоды
     except IOError:
         log.error('Сервер вернул ошибку')
         return 0
+
     log.debug('Получена информация по погоде')
     data = json.loads(data)  # сериализируем полученные данные
     data = data['data']['current_condition'][0]  # выбираем данные по текущей погоде
 
-    # переводим данные в удобный для работы вид
+    """ Переводим данные в удобный для работы вид """
+
     weather = {
-        'condition': data['lang_ru'][0]['value'],  # состояние погоды
-        'temperature': data['temp_C'],  # температура (в градусах Цельсия)
-        'cloudcover': data['cloudcover'],  # облачность (%)
-        'humidity': data['humidity'],  # влажность(%)
-        'visibility': data['visibility'],  # видимость (км)
-        'windSpeed': data['windspeedKmph'],  # скорость ветра (км/ч)
-        'windDirection': data['winddir16Point'],  # направление ветра (16 вариантов)
-        'precipitation': data['precipMM'],  # количество осадков (мм)
-        'pressure': round(int(data['pressure']) * 0.75006, 2)  # давление (в мм рт. ст.)
+        'condition': data['lang_ru'][0]['value'],  # Состояние погоды
+        'temperature': data['temp_C'],  # Температура (в градусах Цельсия)
+        'cloudcover': data['cloudcover'],  # Облачность (%)
+        'humidity': data['humidity'],  # Влажность(%)
+        'visibility': data['visibility'],  # Видимость (км)
+        'windSpeed': data['windspeedKmph'],  # Скорость ветра (км/ч)
+        'windDirection': data['winddir16Point'],  # Направление ветра (16 вариантов)
+        'precipitation': data['precipMM'],  # Количество осадков (мм)
+        'pressure': round(int(data['pressure']) * 0.75006, 2)  # Давление (мм рт. ст.)
         }
 
-    # сохраняем иконку погоды
-    log.debug('Запрос изображения')
+    log.debug('Запрос изображения')  # Сохранение иконку погоды
+
     try:
         img = urlopen(data['weatherIconUrl'][0]['value'])
     except IOError:
         log.error('Сервер вернул ошибку')
         return 0
+
     log.debug('Получено изображение')
     out = open(dirImg, 'wb')
     out.write(img.read())
