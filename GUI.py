@@ -20,65 +20,67 @@ class Window(QtGui.QMainWindow):
 
         """ First frame - weather icon """
 
-        self.frame1 = QtGui.QFrame(self)
-        self.frame1.setFrameShape(QtGui.QFrame.StyledPanel)
-        self.frame1.setFrameShadow(QtGui.QFrame.Raised)
-        self.frame1.setGeometry(15, 10, 150, 165)
-        self.gridlay1 = QtGui.QGridLayout(self.frame1)
+        self.frame_weather_icon = QtGui.QFrame(self)
+        self.frame_weather_icon.setFrameShape(QtGui.QFrame.StyledPanel)
+        self.frame_weather_icon.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame_weather_icon.setGeometry(15, 10, 150, 165)
+        self.gridlay_weather_icon = QtGui.QGridLayout(self.frame_weather_icon)
 
-        self.group1 = QtGui.QGroupBox('Для иконки погоды:', self.frame1)  # Frame with an inscription
-        self.lay1 = QtGui.QVBoxLayout(self.group1)  # Manager placement of elements in the frame
-        self.gridlay1.addWidget(self.group1, 0, 0, 0, 0)
+        # Frame with an inscription
+        self.group_weather_icon = QtGui.QGroupBox('Для иконки погоды:', self.frame_weather_icon)
+        self.lay_weather_icon = QtGui.QVBoxLayout(self.group_weather_icon)  # Manager placement of elements in the frame
+        self.gridlay_weather_icon.addWidget(self.group_weather_icon, 0, 0, 0, 0)
 
         # TODO иконка погоды
 
         """ First frame - weather data """
 
-        self.frame2 = QtGui.QFrame(self)
-        self.frame2.setFrameShape(QtGui.QFrame.StyledPanel)
-        self.frame2.setFrameShadow(QtGui.QFrame.Raised)
-        self.frame2.setGeometry(165, 10, 355, 220)
-        self.gridlay2 = QtGui.QGridLayout(self.frame2)
+        self.frame_weather_data = QtGui.QFrame(self)
+        self.frame_weather_data.setFrameShape(QtGui.QFrame.StyledPanel)
+        self.frame_weather_data.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame_weather_data.setGeometry(165, 10, 355, 220)
+        self.gridlay_weather_data = QtGui.QGridLayout(self.frame_weather_data)
 
-        self.group2 = QtGui.QGroupBox('Погода в текущем городе:', self.frame2)  # Frame with an inscription
-        self.lay2 = QtGui.QVBoxLayout(self.group2)  # Manager placement of elements in the frame
-        self.gridlay2.addWidget(self.group2, 0, 0, 0, 0)
+        # Frame with an inscription
+        self.group_weather_data = QtGui.QGroupBox('Погода в текущем городе:', self.frame_weather_data)
+        self.lay_weather_data = QtGui.QVBoxLayout(self.group_weather_data)  # Manager placement of elements in the frame
+        self.gridlay_weather_data.addWidget(self.group_weather_data, 0, 0, 0, 0)
 
-        self.label_condition = QtGui.QLabel(self.group2)
+        self.label_condition = QtGui.QLabel(self.group_weather_data)
         self.label_condition.setText(condition)
-        self.lay2.addWidget(self.label_condition)
+        self.lay_weather_data.addWidget(self.label_condition)
 
-        self.label_temperature = QtGui.QLabel(self.group2)
+        self.label_temperature = QtGui.QLabel(self.group_weather_data)
         self.label_temperature.setText(temperature)
-        self.lay2.addWidget(self.label_temperature)
+        self.lay_weather_data.addWidget(self.label_temperature)
 
-        self.label_humidity = QtGui.QLabel(self.group2)
+        self.label_humidity = QtGui.QLabel(self.group_weather_data)
         self.label_humidity.setText(humidity)
-        self.lay2.addWidget(self.label_humidity)
+        self.lay_weather_data.addWidget(self.label_humidity)
 
-        self.label_cloud_cover = QtGui.QLabel(self.group2)
+        self.label_cloud_cover = QtGui.QLabel(self.group_weather_data)
         self.label_cloud_cover.setText(cloud_cover)
-        self.lay2.addWidget(self.label_cloud_cover)
+        self.lay_weather_data.addWidget(self.label_cloud_cover)
 
-        self.label_wind_speed = QtGui.QLabel(self.group2)
+        self.label_wind_speed = QtGui.QLabel(self.group_weather_data)
         self.label_wind_speed.setText(wind_speed)
-        self.lay2.addWidget(self.label_wind_speed)
+        self.lay_weather_data.addWidget(self.label_wind_speed)
 
-        self.label_wind_direction = QtGui.QLabel(self.group2)
+        self.label_wind_direction = QtGui.QLabel(self.group_weather_data)
         self.label_wind_direction.setText(wind_direction)
-        self.lay2.addWidget(self.label_wind_direction)
+        self.lay_weather_data.addWidget(self.label_wind_direction)
 
-        self.label_visibility = QtGui.QLabel(self.group2)
+        self.label_visibility = QtGui.QLabel(self.group_weather_data)
         self.label_visibility.setText(visibility)
-        self.lay2.addWidget(self.label_visibility)
+        self.lay_weather_data.addWidget(self.label_visibility)
 
-        self.label_precipitation = QtGui.QLabel(self.group2)
+        self.label_precipitation = QtGui.QLabel(self.group_weather_data)
         self.label_precipitation.setText(precipitation)
-        self.lay2.addWidget(self.label_precipitation)
+        self.lay_weather_data.addWidget(self.label_precipitation)
 
-        self.label_pressure = QtGui.QLabel(self.group2)
+        self.label_pressure = QtGui.QLabel(self.group_weather_data)
         self.label_pressure.setText(pressure)
-        self.lay2.addWidget(self.label_pressure)
+        self.lay_weather_data.addWidget(self.label_pressure)
 
         self.button1 = QtGui.QPushButton('Получить данные', self)
         self.button1.setGeometry(30, 180, 120, 32)
