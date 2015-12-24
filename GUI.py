@@ -18,11 +18,6 @@ class Window(QtGui.QMainWindow):
         self.statusBar()
 #        self.statusBar().showMessage('статус-бар')
 
-        self.exit_program = QtGui.QAction(QtGui.QIcon('open.png'), 'Закрыть программу', self)
-        self.exit_program.setShortcut('Ctrl+Q')
-        self.exit_program.setStatusTip('Выход из программы')
-        self.connect(self.exit_program, QtCore.SIGNAL('triggered()'), exit)
-
         """ First frame - weather icon """
 
         self.frame1 = QtGui.QFrame(self)
@@ -34,6 +29,8 @@ class Window(QtGui.QMainWindow):
         self.group1 = QtGui.QGroupBox('Для иконки погоды:', self.frame1)  # Frame with an inscription
         self.lay1 = QtGui.QVBoxLayout(self.group1)  # Manager placement of elements in the frame
         self.gridlay1.addWidget(self.group1, 0, 0, 0, 0)
+
+        # TODO иконка погоды
 
         """ First frame - weather data """
 
@@ -93,7 +90,20 @@ class Window(QtGui.QMainWindow):
 
         cur_weather = get_weather.get_weather()
         if cur_weather == 0:
-            # TODO вывод ошибки
+
+            global condition, temperature, humidity, cloud_cover, wind_speed, wind_direction, visibility,\
+                precipitation, pressure
+
+            self.label_condition.setText("<font color = grey>Ошибка. Проверьте подключение к Интернету.<\\font>")
+            self.label_temperature.setText("")
+            self.label_humidity.setText("")
+            self.label_cloud_cover.setText("")
+            self.label_wind_speed.setText("")
+            self.label_wind_direction.setText("")
+            self.label_visibility.setText("")
+            self.label_precipitation.setText("")
+            self.label_pressure.setText("")
+
             return 0
 
         self.label_condition.setText("<font color = blue>Состояние погоды: <\\font>"
@@ -115,7 +125,15 @@ class Window(QtGui.QMainWindow):
         self.label_pressure.setText("<font color = blue>Давление: <\\font>"
                                     + str(cur_weather['pressure']) + " (мм р. ст.)")
 
+    def closeEvent(self, event):  # Confirmation of exit
 
+        """ Message Box opens to confirm the exit from the program. """
+
+        reply = QtGui.QMessageBox.question(self, self.trUtf8('Закрытие программы'),
+                                           self.trUtf8("Вы уверены что хотите выйти?"),
+                                           QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+
+        event.accept() if reply == QtGui.QMessageBox.Yes else event.ignore()
 
 condition = "<font color = grey>Для получения данных о погоде необходимо нажать кнопку<\\font>"
 temperature = ""
