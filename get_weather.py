@@ -13,9 +13,8 @@ dirImg = 'img.png'  # Путь сохранения изображения
 ip = ''
 
 def get_ip():
-
-    """ Получить свой IP-адрес """
-
+    """ Получить свой IP-адрес
+    """
     global ip
     log.debug('Запрос на получение IP-адреса')
 
@@ -30,13 +29,11 @@ def get_ip():
     return ip
 
 def get_weather():
-
     """
     Получить данные о погоде
     Возвращает:
         -(dict) параметры погоды с их значениями
     """
-
     global ip
     if len(ip) == 0:
         ip = get_ip()
@@ -60,8 +57,7 @@ def get_weather():
     data = json.loads(data)  # сериализируем полученные данные
     data = data['data']['current_condition'][0]  # выбираем данные по текущей погоде
 
-    """ Переводим данные в удобный для работы вид """
-
+    # Переводим данные в удобный для работы вид
     weather = {
         'condition': data['lang_ru'][0]['value'],  # Состояние погоды
         'temperature': data['temp_C'],  # Температура (в градусах Цельсия)
@@ -74,7 +70,8 @@ def get_weather():
         'pressure': round(int(data['pressure']) * 0.75006, 2)  # Давление (мм рт. ст.)
         }
 
-    log.debug('Запрос изображения')  # Сохранение иконку погоды
+    # Сохранение иконки погоды
+    log.debug('Запрос изображения')
 
     try:
         img = urlopen(data['weatherIconUrl'][0]['value'])

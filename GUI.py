@@ -1,4 +1,4 @@
-# coding: utf8
+# -*- coding: utf-8 -*-
 
 import sys
 from PyQt4 import QtGui, QtCore
@@ -95,7 +95,7 @@ class Window(QtGui.QMainWindow):
 
             global condition, temperature, humidity, cloud_cover, wind_speed, wind_direction, visibility,\
                 precipitation, pressure
-
+            # TODO добавить сообщение о начеле получения данных,
             self.label_condition.setText("<font color = grey>Ошибка. Проверьте подключение к Интернету.<\\font>")
             self.label_temperature.setText("")
             self.label_humidity.setText("")
